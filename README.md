@@ -1,1 +1,1 @@
-# UniqHosting.github.io
+# uniqhosting.github.io

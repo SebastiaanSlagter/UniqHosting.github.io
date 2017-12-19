@@ -11,12 +11,12 @@ Author URL  :   https://themeforest.net/user/themelooks
 
 ;(function ($) {
     'use strict';
-  
+
     /* -------------------------------
         Common Variables
     ------------------------------- */
     var $wn = $(window);
-    
+
     /* -------------------------------
         RESPONSIVE PRICE DETAILS
     ------------------------------- */
@@ -37,13 +37,13 @@ Author URL  :   https://themeforest.net/user/themelooks
             $t.append( params.beforeData + text + params.afterData );
         });
     };
-    
+
     $(function () {
         /* -------------------------------
             Main Scroll Class
         ------------------------------- */
         var $body = $('body');
-        
+
         $wn.on('load scroll', function () {
             if ( $wn.scrollTop() > 1 ) {
                 $body.addClass('scrolled');
@@ -51,35 +51,35 @@ Author URL  :   https://themeforest.net/user/themelooks
                 $body.removeClass('scrolled');
             }
         });
-        
+
         /* -------------------------------
             Background Images
         ------------------------------- */
         var $bgImg = $('[data-bg-img]');
-        
+
         $bgImg.each(function () {
             var $t = $(this);
-            
+
             $t.css('background-image', 'url('+ $t.data('bg-img') +')').removeAttr('data-bg-img').addClass('bg--img');
         });
-        
+
         /* -------------------------------
             Header Nav
         ------------------------------- */
         var $headerNav = $("#headerNav");
-        
+
 		$headerNav.hoverIntent({
 			selector: 'li.dropdown',
 			over: function () {
 				$(this).addClass('open');
-			},   
+			},
 			out: function () {
 				$(this).removeClass('open');
 			},
 			timeout: 500,
 			interval: 300
 		});
-        
+
         /* -------------------------------
             Owl Sliders
         ------------------------------- */
@@ -88,21 +88,21 @@ Author URL  :   https://themeforest.net/user/themelooks
             $bSNList = $bSNav.find('li'),
             bSNActiveOnSlide = function (t) {
                 var $id = $(t.$owlItems[t.currentItem]).children().data('owl-id');
-                
+
                 var $target = $bSNav.find('li[data-owl-target="'+ $id +'"]');
-                
+
                 $target.addClass('active').siblings().removeClass('active');
-            
+
                 if ( $bSlider.length ) {
                     $bSlider.trigger('owl.goTo', $target.index());
                 }
-                
+
                 if ( $pSlider.length ) {
                     $pSlider.trigger('owl.goTo', $target.index());
                 }
             },
             $pSlider = $('.PricingSlider');
-        
+
         /* Banner Slider */
         if ( $bSlider.length ) {
             $bSlider.owlCarousel({
@@ -114,7 +114,7 @@ Author URL  :   https://themeforest.net/user/themelooks
                 navigation: false,
                 afterInit: function () {
                     bSNActiveOnSlide(this);
-                    
+
                     // Add class to banner slider nav
                     $bSNav.addClass('has--bs');
                 },
@@ -123,20 +123,20 @@ Author URL  :   https://themeforest.net/user/themelooks
                 }
             });
         }
-        
+
         /* Banner Slider Nav */
         $bSNList.on('click', function () {
             var $t = $(this),
                 $tSlider = $('[data-owl-id="'+ $t.data('owl-target') +'"]');
-            
+
             if ( $tSlider.length ) {
                 $t.addClass('active').siblings('li').removeClass('active');
-            
+
                 $bSlider.trigger('owl.goTo', $tSlider.parent('.owl-item').index());
                 $pSlider.trigger('owl.goTo', $tSlider.parent('.owl-item').index());
             }
         });
-        
+
         /* Pricing Slider */
         if ( $pSlider.length ) {
             $pSlider.owlCarousel({
@@ -148,7 +148,7 @@ Author URL  :   https://themeforest.net/user/themelooks
                 navigation: false,
                 afterInit: function () {
                     bSNActiveOnSlide(this);
-                    
+
                     // Add class to banner slider nav
                     $bSNav.addClass('has--ps');
                 },
@@ -157,10 +157,10 @@ Author URL  :   https://themeforest.net/user/themelooks
                 }
             });
         }
-        
+
         /* Testimonial Slider */
         var $ttSlider = $('.TestimonialSlider');
-        
+
         if ( $ttSlider.length ) {
             var testimonialImg = function (obj) {
                 var $tUItemThumb = obj.$userItems,
@@ -172,7 +172,7 @@ Author URL  :   https://themeforest.net/user/themelooks
                     $tPage.eq( $t.parent('.owl-item').index() ).html('<img src="'+ $t.data('thumb') +'" />');
                 });
             };
-            
+
             $ttSlider.owlCarousel({
                 slideSpeed: 700,
                 singleItem: true,
@@ -182,7 +182,7 @@ Author URL  :   https://themeforest.net/user/themelooks
                 navigation: false,
                 afterInit: function () {
                     testimonialImg(this);
-                    
+
                     // Move controls above the slider
                     this.owlControls.prependTo( this.$elem );
                 },
@@ -208,20 +208,20 @@ Author URL  :   https://themeforest.net/user/themelooks
         ,   inputSpaceText = $('.InputSpaceText')
         ,   inputBandwidthText = $('.InputBandwidthText')
         ,   inputPriceText = $('.InputPriceText');
-        
+
         if ( vpsSlider.length ) {
             // VPS slider variables
             var $uiSliderHandle,
                 maxPlans = vpsSliderOpts.maxPlans - 1,
                 detfaultPlan = vpsSliderOpts.detfaultPlan - 1;
-            
+
             // Add slider pips
             for ( var i = 0; i < maxPlans; i++ ) {
                 $('<div class="pip"></div>')
                     .css('left', ((100 / maxPlans) * i) + '%')
                     .appendTo( $headerVPS.children('.pips') );
             }
-            
+
             // Initialize slider
             vpsSlider.slider({
                 animate: "fast",
@@ -237,13 +237,13 @@ Author URL  :   https://themeforest.net/user/themelooks
                     vpsItemBANDWIDTHel.text(vpsSliderOpts.plans[detfaultPlan].brandwidthText);
                     vpsItemPriceEl.text(vpsSliderOpts.plans[detfaultPlan].priceText);
                     vpsActionBtn.attr('href', vpsSliderOpts.plans[detfaultPlan].url);
-                    
+
                     inputCPUText.val(vpsSliderOpts.plans[detfaultPlan].cpuText);
                     inputRamText.val(vpsSliderOpts.plans[detfaultPlan].ramText);
                     inputSpaceText.val(vpsSliderOpts.plans[detfaultPlan].spaceText);
                     inputBandwidthText.val(vpsSliderOpts.plans[detfaultPlan].brandwidthText);
                     inputPriceText.val(vpsSliderOpts.plans[detfaultPlan].priceText);
-                    
+
                     $uiSliderHandle = vpsSlider.children('.ui-slider-handle');
                     $('<i class="fa fa-circle"></i><em></em>').appendTo($uiSliderHandle);
                     $uiSliderHandle.children('em').html(vpsSliderOpts.plans[detfaultPlan].planName);
@@ -255,13 +255,13 @@ Author URL  :   https://themeforest.net/user/themelooks
                     vpsItemBANDWIDTHel.text(vpsSliderOpts.plans[ui.value].brandwidthText);
                     vpsItemPriceEl.text(vpsSliderOpts.plans[ui.value].priceText);
                     vpsActionBtn.attr('href', vpsSliderOpts.plans[ui.value].url);
-                    
+
                     inputCPUText.val(vpsSliderOpts.plans[ui.value].cpuText);
                     inputRamText.val(vpsSliderOpts.plans[ui.value].ramText);
                     inputSpaceText.val(vpsSliderOpts.plans[ui.value].spaceText);
                     inputBandwidthText.val(vpsSliderOpts.plans[ui.value].brandwidthText);
                     inputPriceText.val(vpsSliderOpts.plans[ui.value].priceText);
-                    
+
                     $uiSliderHandle.children('em').html(vpsSliderOpts.plans[ui.value].planName);
                 }
             });
@@ -271,20 +271,20 @@ Author URL  :   https://themeforest.net/user/themelooks
             Price Details
         ------------------------------- */
         var $resPriceDetailsTable = $('.ResPriceDetailsTable');
-        
+
         $resPriceDetailsTable.resPriceDetails({
             getData: 'thead th',
             putData: 'tbody td'
         });
-        
+
         var $resPriceDetailsItemsI = $('.ResPriceDetailsItemsI'),
             $resPriceDetailsItems2 = $('.ResPriceDetailsItems2');
-        
+
         $resPriceDetailsItemsI.resPriceDetails({
             getData: '.price-details--item.head li',
             putData: '.price-details--item.body li'
         });
-        
+
         $resPriceDetailsItems2.resPriceDetails({
             getData: '.price-details--item.head li',
             putData: '.price-details--item.body li'
@@ -295,7 +295,7 @@ Author URL  :   https://themeforest.net/user/themelooks
         ------------------------------- */
         var $contactForm = $('.contact--form form'),
             $contactFormStatus = $contactForm.find('.contact--form-status');
-        
+
         if ( $contactForm.length ) {
             $contactForm.on('submit', function () {
                 var $t = $(this);
@@ -308,14 +308,14 @@ Author URL  :   https://themeforest.net/user/themelooks
                     success: function (res) {
                         if ( res.type === 'success' ) {
                             $contactFormStatus.show().html(res.content).delay(3000).fadeOut("slow");
-                            
+
                             $t[0].reset();
                         } else {
                             $contactFormStatus.show().html(res.content);
                         }
                     }
                 });
-                
+
                 return false;
             });
         }
@@ -324,7 +324,7 @@ Author URL  :   https://themeforest.net/user/themelooks
             Map
         ------------------------------- */
         var $map = $('#map');
-            
+
         if ( $map.length ) {
             var myLatLng = {
                     lat: $map.data('latitude'),
@@ -334,7 +334,7 @@ Author URL  :   https://themeforest.net/user/themelooks
                 map, marker, style;
 
             style = [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}];
-            
+
             map = new google.maps.Map(document.getElementById('map'), {
                 center: myLatLng,
                 zoom: zoomV,
@@ -343,39 +343,26 @@ Author URL  :   https://themeforest.net/user/themelooks
                 zoomControl: true,
                 styles: style
             });
-            
+
             marker = new google.maps.Marker({
                 position: myLatLng,
                 map: map,
                 animation: google.maps.Animation.DROP
             });
         }
-        
-        /* -------------------------------
-            Live Chat Widget
-        ------------------------------- */
-        var Tawk_API = Tawk_API || {},
-            Tawk_LoadStart = new Date(),
-            $tawk = document.createElement("script");
-            
-        $tawk.async=true;
-        $tawk.src='https://embed.tawk.to/57dfd4b85dc7a25e92808cf6/default';
-        $tawk.charset='UTF-8';
-        $tawk.setAttribute('crossorigin','*');
-        
-        $($tawk).appendTo('body');
-        
+
+  
         /* -------------------------------
             Back To Top Button
         ------------------------------- */
         var $backToTop = $('#backToTop');
-        
+
         $backToTop.on('click', 'a', function () {
             $('html, body').animate({scrollTop:0}, '800');
-            
+
             return false;
         });
-        
+
         /* -------------------------------
             Color Switcher
         ------------------------------- */
@@ -423,23 +410,23 @@ Author URL  :   https://themeforest.net/user/themelooks
             Counter Up
         ------------------------------- */
         var $counterUp = $('[data-counterUp]');
-        
+
         if ( typeof $.fn.counterUp === "function" ) {
             $counterUp.counterUp({
                 delay: 10,
                 time: 1000
             });
         }
-        
+
         /* -------------------------------
             Preloader
         ------------------------------- */
         var $preloader = $('#preloader');
-        
+
         if ( $preloader.length ) {
             $preloader.fadeOut('slow');
         }
-        
+
         /* -------------------------------
             Scrolling Animations
         ------------------------------- */
